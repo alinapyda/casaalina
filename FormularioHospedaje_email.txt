@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Parte de Viajeros</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    .persona { border: 1px solid #ccc; padding: 10px; margin-top: 15px; }
+    .error { border: 2px solid red; }
+  </style>
+</head>
+<body>
+  <h1>Parte de Viajeros</h1>
+
+  <form action="https://formsubmit.co/casaalina4rent@gmail.com" method="POST">
+    <label>¿Cuántos viajeros hay? <input type="number" id="cantidadViajeros" min="1" required></label>
+    <button type="button" onclick="generarViajeros()">Generar Formulario</button>
+    <div id="personasContainer"></div>
+
+    <!-- Formsubmit options -->
+    <input type="hidden" name="_next" value="https://alinapyda.github.io/casaalina/thank-you.html">
+    <input type="hidden" name="_captcha" value="false">
+
+    <br><br>
+    <button type="submit">Enviar Formulario</button>
+  </form>
+
+  <script>
+    function addPersona(index) {
+      const container = document.getElementById('personasContainer');
+      const div = document.createElement('div');
+      div.className = 'persona';
+      div.innerHTML = `
+        <h4>Viajero #${index + 1}</h4>
+        <label>Nombre: <input name="nombre${index}" required></label>
+        <label>Apellido1: <input name="apellido1${index}" required></label>
+        <label>Apellido2: <input name="apellido2${index}"></label>
+        <label>Tipo Documento:
+          <select name="tipoDocumento${index}">
+            <option value="NIF">NIF</option>
+            <option value="NIE">NIE</option>
+            <option value="PAS">PAS</option>
+            <option value="OTRO">OTRO</option>
+          </select>
+        </label>
+        <label>Número Documento: <input name="numeroDocumento${index}"></label>
+        <label>Soporte Documento: <input name="soporteDocumento${index}"></label>
+        <label>Fecha Nacimiento: <input type="date" name="fechaNacimiento${index}" required></label>
+        <label>Nacionalidad (ISO3): <input name="nacionalidad${index}" value="ESP" required></label>
+        <label>Sexo:
+          <select name="sexo${index}">
+            <option value="H">Hombre</option>
+            <option value="M">Mujer</option>
+            <option value="O">Otro</option>
+          </select>
+        </label>
+        <label>Dirección: <input name="direccion${index}"></label>
+        <label>Complementaria: <input name="direccionComplementaria${index}"></label>
+        <label>Código Municipio: <input name="codigoMunicipio${index}"></label>
+        <label>Nombre Municipio: <input name="nombreMunicipio${index}"></label>
+        <label>Código Postal: <input name="codigoPostal${index}"></label>
+        <label>País (ISO3): <input name="pais${index}" value="ESP" required></label>
+        <label>Teléfono: <input name="telefono${index}"></label>
+        <label>Teléfono2: <input name="telefono2${index}"></label>
+        <label>Correo: <input type="email" name="correo${index}"></label>
+        <label>Parentesco:
+          <select name="parentesco${index}">
+            <option value="PM">Padre/Madre</option>
+            <option value="HJ">Hijo/a</option>
+            <option value="OT">Otro</option>
+          </select>
+        </label>
+      `;
+      container.appendChild(div);
+    }
+
+    function generarViajeros() {
+      const cantidad = parseInt(document.getElementById('cantidadViajeros').value);
+      const container = document.getElementById('personasContainer');
+      container.innerHTML = '';
+      if (cantidad > 0) {
+        for (let i = 0; i < cantidad; i++) {
+          addPersona(i);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
